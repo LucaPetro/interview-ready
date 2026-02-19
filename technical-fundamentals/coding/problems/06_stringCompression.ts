@@ -7,5 +7,20 @@
 // You can assume the string has only uppercase and lowercase letters (a - z).
 
 export default function stringCompression (str: string) : string {
- 
+  let current = str[0]
+  let count = 0 // must start at 0 because the 1st loop increments count
+  let out = ''
+  for (const char of str) {
+    if (char !== current) {
+      out += `${current}${count}`
+      current = char;
+      count = 1
+    } else count++;
+  }
+
+  out += `${current}${count}` // otherwise skips last letter
+
+  return (out.length > str.length) 
+    ? str
+    : out
 }

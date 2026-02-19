@@ -10,5 +10,20 @@
 // ```
 
 export default function palindromePermutation (str: string): boolean {
+    str = str.toLowerCase().split(' ').join('')
+    const hash: Record<string, number> = {}
+    for (const char of str) {
+        if (!hash[char]) hash[char] = 1;
+        else hash[char]++;
+    }
 
+    let tolerance = 0;
+    for (const char in hash) {
+        if (hash[char] % 2 !== 0) {
+            tolerance++;
+            if (tolerance > 1) return false;
+        }
+    }
+
+    return true;
 }
