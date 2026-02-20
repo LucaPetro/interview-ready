@@ -22,4 +22,27 @@ export type Node<T> = {
 export default function partition<T>(
   head: Node<T> | undefined,
   x: T,
-): Node<T> | undefined {}
+): Node<T> | undefined {
+  const list = new LinkedList<T>(head)
+
+  const left = new LinkedList<T>()
+  const right = new LinkedList<T>()
+
+  list.visit((node) => {
+    if (node.value >= x) right.push(node.value);
+    else left.push(node.value);
+  })
+
+  if (!right.head && left.head) return left.head;
+
+  return left.merge(right).head;
+}
+
+// function partitionAlt<T>(head: Node<T> | undefined, x: T): Node<T> | undefined {
+//   const list = new LinkedList<T>(head);
+
+//   const left = list.filter((node) => node.value < x);
+//   const right = list.filter((node) => node.value >= x);
+
+//   return left.merge(right).head;
+// }

@@ -24,4 +24,7 @@ export type Node<T> = {
 
 export default function detectLoop<T>(
   head: Node<T> | undefined,
-): Node<T> | null {}
+): Node<T> | null {
+  const set: Set<Node<T>> = new Set();
+  
+}
