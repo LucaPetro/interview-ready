@@ -25,6 +25,17 @@ export type Node<T> = {
 export default function detectLoop<T>(
   head: Node<T> | undefined,
 ): Node<T> | null {
+  if (!head?.next) return null;
   const set: Set<Node<T>> = new Set();
+
+  let currentNode: Node<T> | undefined = head;
+  while (currentNode) {
+    if (set.has(currentNode)) return currentNode;
   
+    set.add(currentNode);
+
+    currentNode = currentNode.next
+  }
+
+  return null;
 }

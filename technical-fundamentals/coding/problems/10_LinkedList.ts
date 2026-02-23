@@ -118,5 +118,3 @@ export class LinkedList<T> {
     return this.#len;
   }
 }
-
-const list = new LinkedList();
