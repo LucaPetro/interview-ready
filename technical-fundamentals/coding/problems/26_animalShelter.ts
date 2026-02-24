@@ -20,22 +20,57 @@ export class Animal {
 }
 
 export default class AnimalShelter {
+    dogs: Animal[] = []
+    cats: Animal[] = []
+    all: Animal[] = []
 
     constructor() {
     }
 
     enqueue(type: AnimalType): void {
+      const animal = new Animal(type)
+      switch (animal.type) {
+      case "cat":
+        this.cats.push(animal)
+        break;
+      case "dog":
+        this.dogs.push(animal)
+        break;
+      }
 
+      this.all.push(animal)
     }
 
     dequeueAny(): Animal | undefined {
+      const animal = this.all.shift()
+      if (!animal) return;
 
+      switch (animal.type) {
+      case "cat":
+        this.cats.shift()
+        break;
+      case "dog":
+        this.dogs.shift()
+        break;
+      }
+
+      return animal;
     }
 
     dequeueDog(): Animal | undefined {
+      const idx = this.all.findIndex(a => a.type === 'dog')
+
+      this.all.splice(idx, 1)
+
+      return this.dogs.shift()
     }
 
     dequeueCat(): Animal | undefined {
+      const idx = this.all.findIndex(a => a.type === 'cat')
+
+      this.all.splice(idx, 1)
+
+      return this.cats.shift()
     }
 }
 
